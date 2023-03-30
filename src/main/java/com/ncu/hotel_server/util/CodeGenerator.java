@@ -69,7 +69,7 @@ public class CodeGenerator {
                             .formatServiceFileName("%sService")//服务层接口名后缀
                             .formatServiceImplFileName("%sServiceImpl")//服务层实现类名后缀
                             .entityBuilder()
-                            .enableLombok()//实体类使用lombok,需要自己引入依赖
+                            //.enableLombok()//实体类使用lombok,需要自己引入依赖
                             //.logicDeleteColumnName("status")//逻辑删除字段，使用delete方法删除数据时会将status设置为1。调用update方法时并不会将该字段放入修改字段中，而是在条件字段中
                             .enableTableFieldAnnotation()//加上字段注解@TableField
                             .controllerBuilder()
