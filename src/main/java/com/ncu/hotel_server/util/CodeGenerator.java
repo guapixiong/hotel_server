@@ -32,6 +32,7 @@ public class CodeGenerator {
         tables.add("commodity_record");
         tables.add("customer");
         tables.add("order_record");
+        tables.add("occupant_record");
         tables.add("room");
         tables.add("staff");
 
