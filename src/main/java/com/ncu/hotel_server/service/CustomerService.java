@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-03-30
  */
 public interface CustomerService extends IService<Customer> {
-
+    Integer getCustomerTotalByTime(String start,String end);
 }

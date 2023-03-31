@@ -1,5 +1,6 @@
 package com.ncu.hotel_server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ncu.hotel_server.entity.Room;
 import com.ncu.hotel_server.mapper.RoomMapper;
 import com.ncu.hotel_server.service.RoomService;
@@ -16,5 +17,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements RoomService {
-
+    @Override
+    public Integer getRoomTotal() {
+        return baseMapper.selectCount(null);
+    }
 }

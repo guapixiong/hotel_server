@@ -69,11 +69,20 @@ public class OrderRecord implements Serializable {
     private String paymentType;
 
     /**
-     * 当前已付金额
+     * 当前已付房费
      */
-    @TableField("payment_amount")
-    private Float paymentAmount;
+    @TableField("room_fee")
+    private Float roomFee;
 
+    /**
+     * 当前已支付的押金
+     */
+    private Float deposit;
+    /**
+     * 商品费用
+     */
+    @TableField("deposit")
+    private Float commodityFee;
     /**
      * 最终付款金额，将房间费用和商品费用结算在一起
      */
@@ -153,12 +162,28 @@ public class OrderRecord implements Serializable {
         this.paymentType = paymentType;
     }
 
-    public Float getPaymentAmount() {
-        return paymentAmount;
+    public Float getRoomFee() {
+        return roomFee;
     }
 
-    public void setPaymentAmount(Float paymentAmount) {
-        this.paymentAmount = paymentAmount;
+    public void setRoomFee(Float roomFee) {
+        this.roomFee = roomFee;
+    }
+
+    public Float getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(Float deposit) {
+        this.deposit = deposit;
+    }
+
+    public Float getCommodityFee() {
+        return commodityFee;
+    }
+
+    public void setCommodityFee(Float commodityFee) {
+        this.commodityFee = commodityFee;
     }
 
     public Float getFinalPaymentAmount() {
@@ -167,22 +192,5 @@ public class OrderRecord implements Serializable {
 
     public void setFinalPaymentAmount(Float finalPaymentAmount) {
         this.finalPaymentAmount = finalPaymentAmount;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderRecord{" +
-        "orderId=" + orderId +
-        ", customerId=" + customerId +
-        ", createTime=" + createTime +
-        ", completeTime=" + completeTime +
-        ", checkInTime=" + checkInTime +
-        ", checkOutTime=" + checkOutTime +
-        ", roomId=" + roomId +
-        ", orderStatus=" + orderStatus +
-        ", paymentType=" + paymentType +
-        ", paymentAmount=" + paymentAmount +
-        ", finalPaymentAmount=" + finalPaymentAmount +
-        "}";
     }
 }

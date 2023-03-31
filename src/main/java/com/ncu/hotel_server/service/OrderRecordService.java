@@ -3,6 +3,9 @@ package com.ncu.hotel_server.service;
 import com.ncu.hotel_server.entity.OrderRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务类
@@ -12,5 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-03-30
  */
 public interface OrderRecordService extends IService<OrderRecord> {
-
+    List<Map<String,Object>> getSalesByTime(String start,String end);
+    List<Map<String,Object>> getRecordTotal(String start,String end);
 }

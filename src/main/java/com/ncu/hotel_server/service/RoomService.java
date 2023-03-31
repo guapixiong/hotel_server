@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-03-30
  */
 public interface RoomService extends IService<Room> {
-
+    Integer getRoomTotal();
 }

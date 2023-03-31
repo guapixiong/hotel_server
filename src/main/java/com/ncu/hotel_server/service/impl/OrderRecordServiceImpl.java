@@ -6,6 +6,9 @@ import com.ncu.hotel_server.service.OrderRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务实现类
@@ -16,5 +19,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrderRecordServiceImpl extends ServiceImpl<OrderRecordMapper, OrderRecord> implements OrderRecordService {
+    @Override
+    public List<Map<String, Object>> getSalesByTime(String start, String end) {
+        return baseMapper.getSalesByTime(start, end);
+    }
 
+    @Override
+    public List<Map<String, Object>> getRecordTotal(String start, String end) {
+        return baseMapper.getRecordTotal(start,end);
+    }
 }
