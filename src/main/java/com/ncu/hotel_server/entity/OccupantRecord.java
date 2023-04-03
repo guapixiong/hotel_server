@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -39,6 +40,10 @@ public class OccupantRecord implements Serializable {
      */
     @TableField("name")
     private String name;
+    @TableField("register_time")
+    private LocalDateTime registerTime;
+    @TableField("leave_time")
+    private LocalDateTime leaveTime;
 
     /**
      * 0为居民身份证，1为临时身份证
@@ -85,6 +90,22 @@ public class OccupantRecord implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public LocalDateTime getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(LocalDateTime registerTime) {
+        this.registerTime = registerTime;
+    }
+
+    public LocalDateTime getLeaveTime() {
+        return leaveTime;
+    }
+
+    public void setLeaveTime(LocalDateTime leaveTime) {
+        this.leaveTime = leaveTime;
     }
 
     @Override

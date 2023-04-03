@@ -2,6 +2,7 @@ package com.ncu.hotel_server.mapper;
 
 import com.ncu.hotel_server.entity.OrderRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import javafx.beans.binding.ObjectExpression;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -40,4 +41,15 @@ public interface OrderRecordMapper extends BaseMapper<OrderRecord> {
             "from order_record\n" +
             "where create_time between #{start} and #{end}")
     List<Map<String,Object>> getRecordTotal(@Param("start") String start,@Param("end") String end);
+
+    /**
+     * 根据时间来获取订单基础信息
+     * @param start
+     * @param end
+     * @return
+     */
+    @Select("select order_id,c.customer_name,c.customer_phone,r.room_name,order_status,check_in_time,check_out_time,order_record.create_time,order_record.complete_time,final_payment_amount\n" +
+            "from order_record left join room r on order_record.room_id = r.room_id left join customer c on order_record.customer_id = c.customer_id\n" +
+            "where order_record.create_time between #{start} and #{end}")
+    List<Map<String, Object>> getOrderByTime(@Param("start") String start,@Param("end") String end);
 }

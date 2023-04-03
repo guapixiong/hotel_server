@@ -73,7 +73,7 @@ public class OrderRecord implements Serializable {
      */
     @TableField("payment_type")
     private String paymentType;
-
+    private Float roomFee;
     /**
      * 最终付款金额，将房间费用和商品费用结算在一起
      */
@@ -167,6 +167,14 @@ public class OrderRecord implements Serializable {
 
     public void setFinalPaymentAmount(Float finalPaymentAmount) {
         this.finalPaymentAmount = finalPaymentAmount;
+    }
+
+    public Float getRoomFee() {
+        return roomFee;
+    }
+
+    public void setRoomFee(Float roomFee) {
+        this.roomFee = roomFee;
     }
 
     @Override

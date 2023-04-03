@@ -17,4 +17,5 @@ import java.util.Map;
 public interface OrderRecordService extends IService<OrderRecord> {
     List<Map<String,Object>> getSalesByTime(String start, String end);
     List<Map<String,Object>> getRecordTotal(String start,String end);
+    List<Map<String,Object>> getOrderByTime(String start,String end);
 }

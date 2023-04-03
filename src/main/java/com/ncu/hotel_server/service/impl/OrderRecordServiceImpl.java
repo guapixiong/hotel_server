@@ -28,4 +28,9 @@ public class OrderRecordServiceImpl extends ServiceImpl<OrderRecordMapper, Order
     public List<Map<String, Object>> getRecordTotal(String start, String end) {
         return baseMapper.getRecordTotal(start,end);
     }
+
+    @Override
+    public List<Map<String, Object>> getOrderByTime(String start, String end) {
+        return baseMapper.getOrderByTime(start,end);
+    }
 }

@@ -34,4 +34,9 @@ public class OrderRecordController {
     public List<Map<String,Object>> getRecordTotal(@Param("start") String start, @Param("end") String end){
         return orderRecordService.getRecordTotal(start, end);
     }
+    @ApiOperation("获取订单基础信息通过时间")
+    @GetMapping("/getOrderByTime")
+    public List<Map<String,Object>> getOrderByTime(@Param("start") String start, @Param("end") String end){
+        return orderRecordService.getOrderByTime(start, end);
+    }
 }
