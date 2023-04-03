@@ -28,15 +28,14 @@ public class CodeGenerator {
         //表名集合
         List<String> tables = new ArrayList<>();
         tables.add("administrator");
+        tables.add("category");
         tables.add("commodity");
         tables.add("commodity_record");
         tables.add("customer");
+        tables.add("deposit");
         tables.add("order_record");
         tables.add("occupant_record");
         tables.add("room");
-        tables.add("staff");
-
-
         FastAutoGenerator.create(url, username, password)
                 //全局配置
                 .globalConfig(builder -> {
@@ -82,6 +81,5 @@ public class CodeGenerator {
                             .formatXmlFileName("%sMapper");
                 })
                 .execute();
-
     }
 }
