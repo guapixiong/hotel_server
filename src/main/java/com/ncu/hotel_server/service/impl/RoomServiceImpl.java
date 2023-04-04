@@ -6,6 +6,9 @@ import com.ncu.hotel_server.service.RoomService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务实现类
@@ -19,5 +22,10 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
     @Override
     public Integer getRoomTotal() {
         return baseMapper.selectCount(null);
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllRoomDetail() {
+        return baseMapper.getAllRoomDetail();
     }
 }

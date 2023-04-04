@@ -2,7 +2,12 @@ package com.ncu.hotel_server.mapper;
 
 import com.ncu.hotel_server.entity.Room;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import javafx.beans.binding.ObjectExpression;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -14,5 +19,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface RoomMapper extends BaseMapper<Room> {
-
+    @Select("select room_id, room_name, room_url, room_type, room_price, hour_price, room_introduction, room_state\n" +
+            "from room")
+    List<Map<String, Object>> getAllRoomDetail();
 }

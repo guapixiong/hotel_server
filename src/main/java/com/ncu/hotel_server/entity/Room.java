@@ -49,11 +49,6 @@ public class Room implements Serializable {
     @TableField("hour_price")
     private Float hourPrice;
 
-    /**
-     * 房间折扣
-     */
-    @TableField("room_discount")
-    private Float roomDiscount;
 
     /**
      * 房间简介
@@ -116,13 +111,6 @@ public class Room implements Serializable {
         this.hourPrice = hourPrice;
     }
 
-    public Float getRoomDiscount() {
-        return roomDiscount;
-    }
-
-    public void setRoomDiscount(Float roomDiscount) {
-        this.roomDiscount = roomDiscount;
-    }
 
     public String getRoomIntroduction() {
         return roomIntroduction;
@@ -149,7 +137,6 @@ public class Room implements Serializable {
         ", roomType=" + roomType +
         ", roomPrice=" + roomPrice +
         ", hourPrice=" + hourPrice +
-        ", roomDiscount=" + roomDiscount +
         ", roomIntroduction=" + roomIntroduction +
         ", roomState=" + roomState +
         "}";
