@@ -28,9 +28,9 @@ public class DateFormatConfig {
     private String pattern;
 
     /**
-     * @author xiaofu
+     * @author Xiong Penghui
      * @description date 类型全局时间格式化
-     * @date 2020/8/31 18:22
+     * @date 2023/4/3 18:22
      */
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilder() {
@@ -45,17 +45,15 @@ public class DateFormatConfig {
                     .dateFormat(df);
         };
     }
-
     /**
-     * @author xiaofu
-     * @description LocalDate 类型全局时间格式化
-     * @date 2020/8/31 18:22
+     * @author Xiong Penghui
+     * @description date 类型全局时间格式化
+     * @date 2023/4/3 18:22
      */
     @Bean
     public LocalDateTimeSerializer localDateTimeDeserializer() {
         return new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(pattern));
     }
-
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
         return builder -> builder.serializerByType(LocalDateTime.class, localDateTimeDeserializer());
