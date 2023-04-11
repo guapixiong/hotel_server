@@ -28,4 +28,19 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
     public List<Map<String, Object>> getAllRoomDetail() {
         return baseMapper.getAllRoomDetail();
     }
+
+    @Override
+    public Integer insertRoom(Room room) {
+        return baseMapper.insert(room);
+    }
+
+    @Override
+    public Integer updateRoom(Room room) {
+        return baseMapper.updateById(room);
+    }
+
+    @Override
+    public Integer deleteRoom(Integer id) {
+        return baseMapper.deleteById(id);
+    }
 }

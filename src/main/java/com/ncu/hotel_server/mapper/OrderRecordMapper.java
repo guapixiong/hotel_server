@@ -48,7 +48,7 @@ public interface OrderRecordMapper extends BaseMapper<OrderRecord> {
      * @param end
      * @return
      */
-    @Select("select order_id,c.customer_name,c.customer_phone,r.room_name,order_status,check_in_time,check_out_time,order_record.create_time,order_record.complete_time,final_payment_amount\n" +
+    @Select("select order_id,c.customer_name,c.customer_phone,r.room_number,order_status,check_in_time,check_out_time,order_record.create_time,order_record.complete_time,final_payment_amount\n" +
             "from order_record left join room r on order_record.room_id = r.room_id left join customer c on order_record.customer_id = c.customer_id\n" +
             "where order_record.create_time between #{start} and #{end}")
     List<Map<String, Object>> getOrderByTime(@Param("start") String start,@Param("end") String end);

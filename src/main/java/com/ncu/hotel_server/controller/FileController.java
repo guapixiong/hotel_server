@@ -45,7 +45,7 @@ public class FileController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return fileName;
+        return "/images/"+fileName;
     }
 
     @GetMapping("/images/download")

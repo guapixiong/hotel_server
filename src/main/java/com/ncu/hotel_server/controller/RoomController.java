@@ -1,12 +1,12 @@
 package com.ncu.hotel_server.controller;
 
+import com.ncu.hotel_server.entity.Room;
 import com.ncu.hotel_server.service.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +34,26 @@ public class RoomController {
     @GetMapping("/getAllRoomDetail")
     List<Map<String, Object>> getAllRoomDetail(){
         return roomService.getAllRoomDetail();
+    }
+    @ApiOperation("添加一个房间记录")
+    @PostMapping("/insertRoom")
+    public Boolean insertRoom(@RequestBody Room room){
+        int result=roomService.insertRoom(room);
+        if(result==1)
+            return true;
+        else
+            return false;
+    }
+    @ApiOperation("修改一个房间记录")
+    @PostMapping("/updateRoom")
+    public Integer updateRoom(@RequestBody Room room){
+        return roomService.updateRoom(room);
+    }
+    @ApiOperation("删除一个房间记录")
+    @GetMapping("/deleteRoom")
+    public Integer deleteRoom(@Param("room_id") Integer room_id){
+        System.out.println(room_id);
+        return roomService.deleteRoom(room_id);
     }
 
 }

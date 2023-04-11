@@ -17,4 +17,7 @@ import java.util.Map;
 public interface RoomService extends IService<Room> {
     Integer getRoomTotal();
     List<Map<String, Object>>  getAllRoomDetail();
+    Integer insertRoom(Room room);
+    Integer updateRoom(Room room);
+    Integer deleteRoom(Integer id);
 }

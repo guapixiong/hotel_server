@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Mapper
 public interface RoomMapper extends BaseMapper<Room> {
-    @Select("select room_id, room_name, room_url, room_type, room_price, hour_price, room_introduction, room_state\n" +
+    @Select("select room_id, room_number, room_url, room_type, room_price, hour_price, room_introduction, room_state\n" +
             "from room")
     List<Map<String, Object>> getAllRoomDetail();
 }

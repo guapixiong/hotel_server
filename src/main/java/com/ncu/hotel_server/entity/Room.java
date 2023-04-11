@@ -22,8 +22,8 @@ public class Room implements Serializable {
     @TableId(value = "room_id", type = IdType.AUTO)
     private Integer roomId;
 
-    @TableField("room_name")
-    private String roomName;
+    @TableField("room_number")
+    private String roomNumber;
 
     /**
      * 房间照片
@@ -71,12 +71,12 @@ public class Room implements Serializable {
         this.roomId = roomId;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public String getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public String getRoomUrl() {
@@ -132,7 +132,7 @@ public class Room implements Serializable {
     public String toString() {
         return "Room{" +
         "roomId=" + roomId +
-        ", roomName=" + roomName +
+        ", roomNumber=" + roomNumber +
         ", roomUrl=" + roomUrl +
         ", roomType=" + roomType +
         ", roomPrice=" + roomPrice +
