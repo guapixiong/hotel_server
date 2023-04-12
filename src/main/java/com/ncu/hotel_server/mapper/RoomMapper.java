@@ -19,7 +19,9 @@ import java.util.Map;
  */
 @Mapper
 public interface RoomMapper extends BaseMapper<Room> {
-    @Select("select room_id, room_number, room_url, room_type, room_price, hour_price, room_introduction, room_state\n" +
-            "from room")
+    @Select("select room_id, room_number, room_url, type_id, room_price, hour_price, room_introduction, room_state,type\n" +
+            "from room,room_type where room.type_id=room_type.id")
     List<Map<String, Object>> getAllRoomDetail();
+    @Select("select * from room_type")
+    List<Map<String,Object>> getTypeInfo();
 }

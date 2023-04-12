@@ -17,4 +17,7 @@ import java.util.Map;
 public interface CommodityService extends IService<Commodity> {
     List<Map<String, Object>> selectAllInfo();
     List<Map<String,Object>> getCommodityType();
+    Integer insertCommodity(Map<String,String> params);
+    Integer updateCommodity(Map<String,String> params);
+    Integer deleteCommodity(int id);
 }

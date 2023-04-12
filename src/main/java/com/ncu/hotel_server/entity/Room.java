@@ -34,8 +34,8 @@ public class Room implements Serializable {
     /**
      * 1为单人间，2为双人间，3为三人间
      */
-    @TableField("room_type")
-    private String roomType;
+    @TableField("type_id")
+    private String typeId;
 
     /**
      * 房间价格(每天)
@@ -87,12 +87,12 @@ public class Room implements Serializable {
         this.roomUrl = roomUrl;
     }
 
-    public String getRoomType() {
-        return roomType;
+    public String getTypeId() {
+        return typeId;
     }
 
-    public void setRoomType(String roomType) {
-        this.roomType = roomType;
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
     }
 
     public Float getRoomPrice() {
@@ -134,7 +134,6 @@ public class Room implements Serializable {
         "roomId=" + roomId +
         ", roomNumber=" + roomNumber +
         ", roomUrl=" + roomUrl +
-        ", roomType=" + roomType +
         ", roomPrice=" + roomPrice +
         ", hourPrice=" + hourPrice +
         ", roomIntroduction=" + roomIntroduction +

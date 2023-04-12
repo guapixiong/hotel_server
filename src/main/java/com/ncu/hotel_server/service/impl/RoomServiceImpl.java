@@ -43,4 +43,10 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
     public Integer deleteRoom(Integer id) {
         return baseMapper.deleteById(id);
     }
+
+    @Override
+    public List<Map<String, Object>> getTypeInfo() {
+        return baseMapper.getTypeInfo();
+    }
+
 }

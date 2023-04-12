@@ -25,16 +25,19 @@ import java.util.Map;
 public class RoomController {
     @Autowired
     RoomService roomService;
+
     @ApiOperation("获取房间总数")
     @GetMapping("/getRoomTotal")
     public Integer getRoomTotal(){
         return roomService.getRoomTotal();
     }
+
     @ApiOperation("获取所有房间信息")
     @GetMapping("/getAllRoomDetail")
     List<Map<String, Object>> getAllRoomDetail(){
         return roomService.getAllRoomDetail();
     }
+
     @ApiOperation("添加一个房间记录")
     @PostMapping("/insertRoom")
     public Boolean insertRoom(@RequestBody Room room){
@@ -43,6 +46,11 @@ public class RoomController {
             return true;
         else
             return false;
+    }
+    @ApiOperation("获取房间类型")
+    @GetMapping("/getTypeInfo")
+    public List<Map<String,Object>> getTypeInfo(){
+        return roomService.getTypeInfo();
     }
     @ApiOperation("修改一个房间记录")
     @PostMapping("/updateRoom")

@@ -20,4 +20,5 @@ public interface RoomService extends IService<Room> {
     Integer insertRoom(Room room);
     Integer updateRoom(Room room);
     Integer deleteRoom(Integer id);
+    List<Map<String,Object>> getTypeInfo();
 }
