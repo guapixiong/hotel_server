@@ -6,6 +6,9 @@ import com.ncu.hotel_server.service.CommodityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务实现类
@@ -17,4 +20,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity> implements CommodityService {
 
+    @Override
+    public List<Map<String, Object>> selectAllInfo() {
+        return baseMapper.selectAllInfo();
+    }
+
+    @Override
+    public List<Map<String, Object>> getCommodityType() {
+        return baseMapper.getCommodityType();
+    }
 }

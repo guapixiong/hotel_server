@@ -1,5 +1,6 @@
 package com.ncu.hotel_server.controller;
 
+import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import java.util.UUID;
  * @author : guaPi
  * @date : 2023-04-04 13:38
  **/
+@Api("文件上传")
 @RestController
 @RequestMapping("/common")
 public class FileController {
