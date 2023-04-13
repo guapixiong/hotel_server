@@ -60,8 +60,13 @@ public class RoomController {
     @ApiOperation("删除一个房间记录")
     @GetMapping("/deleteRoom")
     public Integer deleteRoom(@Param("room_id") Integer room_id){
-        System.out.println(room_id);
         return roomService.deleteRoom(room_id);
+    }
+
+    @ApiOperation("通过时间获取可利用的房间")
+    @GetMapping("/getAvailableRoomByTime")
+    public List<Map<String,Object>> getAvailableRoomByTime(String start,String end){
+        return roomService.getAvailableRoomByTime(start,end);
     }
 
 }

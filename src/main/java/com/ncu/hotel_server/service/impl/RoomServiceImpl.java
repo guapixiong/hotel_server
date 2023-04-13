@@ -49,4 +49,8 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
         return baseMapper.getTypeInfo();
     }
 
+    @Override
+    public List<Map<String, Object>> getAvailableRoomByTime(String start, String end) {
+        return baseMapper.getAvailableRoomByTime(start,end);
+    }
 }
