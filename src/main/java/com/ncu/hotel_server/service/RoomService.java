@@ -22,4 +22,5 @@ public interface RoomService extends IService<Room> {
     Integer deleteRoom(Integer id);
     List<Map<String,Object>> getTypeInfo();
     List<Map<String,Object>> getAvailableRoomByTime(String start,String end);
+    Integer insertReservation(Map<String,String> params) throws Exception;
 }

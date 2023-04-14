@@ -69,4 +69,10 @@ public class RoomController {
         return roomService.getAvailableRoomByTime(start,end);
     }
 
+    @ApiOperation("房间预定")
+    @PostMapping("/insertReservation")
+    public Integer insertReservation(@RequestBody Map<String,String> params) throws Exception {
+        return roomService.insertReservation(params);
+    }
+
 }

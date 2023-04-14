@@ -38,11 +38,11 @@ public interface RoomMapper extends BaseMapper<Room> {
      * @return
      */
     @Select("select *\n" +
-            "from room\n" +
+            "from room,room_type\n" +
             "where room_id not in (select room_id\n" +
             "from  (select room_id,if(room_type=1,DATE_FORMAT(check_in_time,'%Y-%m-%d 06:00:00'),check_in_time) check_in_time,if(room_type=1,DATE_FORMAT(check_out_time,'%Y-%m-%d 06:00:00'),check_out_time) check_out_time,order_status\n" +
             "from order_record) a\n" +
             "where  order_status not in ('-1','0') and (check_in_time<=#{end} and check_out_time>=#{start}))\n" +
-            "and room_state='1'")
+            "and room_state='1' and room.type_id= room_type.id")
     List<Map<String,Object>> getAvailableRoomByTime(@Param("start") String start,@Param("end") String end);
 }

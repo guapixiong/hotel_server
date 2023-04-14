@@ -2,7 +2,9 @@ package com.ncu.hotel_server.mapper;
 
 import com.ncu.hotel_server.entity.OrderRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import io.swagger.models.auth.In;
 import javafx.beans.binding.ObjectExpression;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -52,4 +54,8 @@ public interface OrderRecordMapper extends BaseMapper<OrderRecord> {
             "from order_record left join room r on order_record.room_id = r.room_id left join customer c on order_record.customer_id = c.customer_id\n" +
             "where order_record.create_time between #{start} and #{end}")
     List<Map<String, Object>> getOrderByTime(@Param("start") String start,@Param("end") String end);
+
+    @Insert("insert into order_record(customer_id, room_id, room_type,order_status,check_in_time, check_out_time) values(#{customer_id},#{room_id},#{room_type},#{order_status},#{check_in_time},#{check_out_time})")
+    Integer insertReservationRecord(@Param("customer_id") Long customer_id, @Param("room_id") String room_id, @Param("room_type") String room_type,
+                                    @Param("order_status") String order_status, @Param("check_in_time") String check_in_time, @Param("check_out_time") String check_out_time);
 }
