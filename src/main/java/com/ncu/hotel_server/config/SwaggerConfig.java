@@ -24,8 +24,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     @Bean
     public Docket api() {
-        Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .host("localhost:8080")// 不配的话，默认当前项目端口
+        return new Docket(DocumentationType.SWAGGER_2)
+                .host("localhost:8081")// 不配的话，默认当前项目端口
                 .apiInfo(apiInfo())
                 .pathMapping("/")
                 .select() // 选择哪些路径和api会生成document
@@ -36,7 +36,6 @@ public class SwaggerConfig {
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))//错误路径不监控
                 .paths(PathSelectors.regex("/.*"))// 对根下所有路径进行监控
                 .build();
-        return docket;
     }
 
     private ApiInfo apiInfo() {

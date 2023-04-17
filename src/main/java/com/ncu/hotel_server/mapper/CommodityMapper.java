@@ -44,4 +44,22 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
     @Update("update commodity set name=#{name},price=#{price},amount=#{amount},commodity_url=#{commodity_url},commodity_introduction=#{commodity_introduction},category_id=#{category_id}\n" +
             "where commodity_id=#{commodity_id} ")
     Integer updateCommodity(@Param("commodity_id") String commodity_id,@Param("name") String name,@Param("price") String  price,@Param("amount") String amount,@Param("commodity_url") String commodity_url,@Param("commodity_introduction")String commodity_introduction,@Param("category_id") String category_id);
+
+    @Select("select a.id,\n" +
+            "       a.order_id,\n" +
+            "       r.room_number,\n" +
+            "       c2.customer_name,\n" +
+            "       c2.customer_phone,\n" +
+            "       c.name,\n" +
+            "       a.commodity_status,\n" +
+            "       a.commodity_count,\n" +
+            "       a.money,\n" +
+            "       a.create_time,\n" +
+            "       a.complete_time\n" +
+            "from commodity_record a\n" +
+            "         left join commodity c on a.commodity_id = c.commodity_id\n" +
+            "         left outer join order_record o on a.order_id = o.order_id\n" +
+            "         left join customer c2 on o.customer_id = c2.customer_id left join room r on o.room_id = r.room_id\n" +
+            "where   a.create_time between #{start} and #{end}")
+    List<Map<String,Object>> getCommodityRecordByTime(@Param("start")String start,@Param("end")String end);
 }

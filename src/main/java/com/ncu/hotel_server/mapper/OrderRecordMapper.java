@@ -4,10 +4,7 @@ import com.ncu.hotel_server.entity.OrderRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.swagger.models.auth.In;
 import javafx.beans.binding.ObjectExpression;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -55,7 +52,37 @@ public interface OrderRecordMapper extends BaseMapper<OrderRecord> {
             "where order_record.create_time between #{start} and #{end}")
     List<Map<String, Object>> getOrderByTime(@Param("start") String start,@Param("end") String end);
 
+    /**
+     * 擦汗如预定记录
+     * @param customer_id
+     * @param room_id
+     * @param room_type
+     * @param order_status
+     * @param check_in_time
+     * @param check_out_time
+     * @return
+     */
     @Insert("insert into order_record(customer_id, room_id, room_type,order_status,check_in_time, check_out_time) values(#{customer_id},#{room_id},#{room_type},#{order_status},#{check_in_time},#{check_out_time})")
     Integer insertReservationRecord(@Param("customer_id") Long customer_id, @Param("room_id") String room_id, @Param("room_type") String room_type,
                                     @Param("order_status") String order_status, @Param("check_in_time") String check_in_time, @Param("check_out_time") String check_out_time);
+
+    /**
+     * 添加记录同时获取记录id
+     * @param orderRecord
+     * @return
+     */
+    @Insert("insert into order_record(customer_id, room_id, room_type,order_status,check_in_time, check_out_time) values(#{customerId},#{roomId},#{roomType},#{orderStatus},#{checkInTime},#{checkOutTime})")
+    @Options(useGeneratedKeys = true, keyProperty = "orderId",keyColumn="order_id")
+    Integer insertRecord(OrderRecord orderRecord);
+
+    /**
+     * 更新订单状态
+     * @param status
+     * @param id
+     * @return
+     */
+    @Update("update order_record set order_status=#{status} where order_id=#{id}")
+    Integer updateStatus(@Param("status") String status,@Param("id") Integer id);
+    @Update("update order_record set order_status=#{status},complete_time=#{time} where order_id=#{id}")
+    Integer cancelOrder(@Param("status") String status,@Param("id") Integer id,@Param("time") String time);
 }

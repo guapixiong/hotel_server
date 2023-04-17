@@ -44,4 +44,9 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     public Integer deleteCommodity(int id) {
         return baseMapper.deleteById(id);
     }
+
+    @Override
+    public List<Map<String, Object>> getCommodityRecordByTime(String start, String end) {
+        return baseMapper.getCommodityRecordByTime(start,end);
+    }
 }

@@ -53,4 +53,9 @@ public class CommodityController {
     public Integer deleteCommodity(@Param("commodity_id") int commodity_id){
         return commodityService.deleteCommodity(commodity_id);
     }
+    @ApiOperation("通过时间来获取商品记录")
+    @GetMapping("/getCommodityRecordByTime")
+    public List<Map<String,Object>> getCommodityRecordByTime( String start,  String end){
+        return commodityService.getCommodityRecordByTime(start,end);
+    }
 }

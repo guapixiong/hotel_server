@@ -37,4 +37,10 @@ public interface CustomerMapper extends BaseMapper<Customer> {
      */
     @Insert("insert into customer (customer_name,customer_phone) values (#{name},#{phone})")
     Integer insertOneByPhone(@Param("name") String name,@Param("phone") String phone);
+    /**
+     * 查找所有人
+     */
+    @Select("select * from customer")
+    List<Map<String,Object>> getAllUser();
 }
+
