@@ -5,6 +5,7 @@ import com.ncu.hotel_server.service.CommodityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
+import javafx.beans.binding.ObjectExpression;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +58,10 @@ public class CommodityController {
     @GetMapping("/getCommodityRecordByTime")
     public List<Map<String,Object>> getCommodityRecordByTime( String start,  String end){
         return commodityService.getCommodityRecordByTime(start,end);
+    }
+    @ApiOperation("插入多条商品记录")
+    @PostMapping("/insertCommodityRecords")
+    public Integer insertCommodityRecords(@RequestBody Map<String, Object> params) throws Exception {
+        return commodityService.insertCommodityRecords(params);
     }
 }

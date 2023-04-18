@@ -1,7 +1,9 @@
 package com.ncu.hotel_server.config;
 
+import com.ncu.hotel_server.interceptor.GlobalInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -21,5 +23,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**").addResourceLocations("file:"+imagesPath);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new GlobalInterceptor()).addPathPatterns("/**").excludePathPatterns("login/**");
+        WebMvcConfigurer.super.addInterceptors(registry);
     }
 }

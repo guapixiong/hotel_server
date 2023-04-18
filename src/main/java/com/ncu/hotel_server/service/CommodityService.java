@@ -2,6 +2,7 @@ package com.ncu.hotel_server.service;
 
 import com.ncu.hotel_server.entity.Commodity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -21,4 +22,5 @@ public interface CommodityService extends IService<Commodity> {
     Integer updateCommodity(Map<String,String> params);
     Integer deleteCommodity(int id);
     List<Map<String,Object>> getCommodityRecordByTime(String start,String end);
+    Integer insertCommodityRecords( Map<String, Object> params) throws Exception;
 }

@@ -2,6 +2,7 @@ package com.ncu.hotel_server.mapper;
 
 import com.ncu.hotel_server.entity.Commodity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import io.swagger.models.auth.In;
 import javafx.beans.binding.ObjectExpression;
 import org.apache.ibatis.annotations.*;
 
@@ -45,6 +46,12 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
             "where commodity_id=#{commodity_id} ")
     Integer updateCommodity(@Param("commodity_id") String commodity_id,@Param("name") String name,@Param("price") String  price,@Param("amount") String amount,@Param("commodity_url") String commodity_url,@Param("commodity_introduction")String commodity_introduction,@Param("category_id") String category_id);
 
+    /**
+     * 查找时间段内所有商品订单详情
+     * @param start
+     * @param end
+     * @return
+     */
     @Select("select a.id,\n" +
             "       a.order_id,\n" +
             "       r.room_number,\n" +
@@ -62,4 +69,27 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
             "         left join customer c2 on o.customer_id = c2.customer_id left join room r on o.room_id = r.room_id\n" +
             "where   a.create_time between #{start} and #{end}")
     List<Map<String,Object>> getCommodityRecordByTime(@Param("start")String start,@Param("end")String end);
+
+    /**
+     * 更新商品数量
+     * @param amount
+     * @param commodity_id
+     * @return
+     */
+    @Update("update commodity set amount=#{amount} where commodity_id=#{commodity_id}")
+    Integer updateAmountById(@Param("amount") Integer amount,@Param("commodity_id") Integer commodity_id);
+
+    /**
+     * 插入商品记录
+     * @param order_id
+     * @param commodity_id
+     * @param commodity_count
+     * @param money
+     * @return
+     */
+    @Insert("INSERT INTO commodity_record ( order_id, commodity_id,  commodity_count, money ) VALUES ( #{order_id},#{commodity_id},#{commodity_count},#{money})")
+    Integer insertRecord(@Param("order_id") Integer order_id,@Param("commodity_id") Integer commodity_id,@Param("commodity_count") Integer commodity_count,@Param("money") Double money);
+    @Select("select * from commodity where commodity_id=#{commodity_id}")
+    Map<String,Object> selectCommodityById(@Param("commodity_id") Integer commodity_id);
+
 }
