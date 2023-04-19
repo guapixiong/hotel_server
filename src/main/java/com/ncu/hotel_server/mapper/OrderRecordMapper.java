@@ -2,8 +2,6 @@ package com.ncu.hotel_server.mapper;
 
 import com.ncu.hotel_server.entity.OrderRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.swagger.models.auth.In;
-import javafx.beans.binding.ObjectExpression;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -71,7 +69,7 @@ public interface OrderRecordMapper extends BaseMapper<OrderRecord> {
      * @param orderRecord
      * @return
      */
-    @Insert("insert into order_record(customer_id, room_id, room_type,order_status,check_in_time, check_out_time) values(#{customerId},#{roomId},#{roomType},#{orderStatus},#{checkInTime},#{checkOutTime})")
+    @Insert("insert into order_record(customer_id, room_id, room_type,order_status,check_in_time, check_out_time,final_payment_amount) values(#{customerId},#{roomId},#{roomType},#{orderStatus},#{checkInTime},#{checkOutTime},#{finalPaymentAmount})")
     @Options(useGeneratedKeys = true, keyProperty = "orderId",keyColumn="order_id")
     Integer insertRecord(OrderRecord orderRecord);
 
@@ -81,8 +79,50 @@ public interface OrderRecordMapper extends BaseMapper<OrderRecord> {
      * @param id
      * @return
      */
-    @Update("update order_record set order_status=#{status} where order_id=#{id}")
-    Integer updateStatus(@Param("status") String status,@Param("id") Integer id);
+    @Update("update order_record set order_status=#{status},final_payment_amount=#{payment} where order_id=#{id}")
+    Integer updateStatus(@Param("status") String status,@Param("payment") Double payment,@Param("id") Integer id);
+
+    /**
+     * 取消订单
+     * @param status
+     * @param id
+     * @param time
+     * @return
+     */
     @Update("update order_record set order_status=#{status},complete_time=#{time} where order_id=#{id}")
     Integer cancelOrder(@Param("status") String status,@Param("id") Integer id,@Param("time") String time);
+
+    /**
+     * 通过订单id来查找相关信息，不包括商品信息
+     * @param orderId
+     * @return
+     */
+    @Select("select a.order_id,\n" +
+            "       a.order_status,\n" +
+            "       a.room_type,\n" +
+            "       a.check_in_time,\n" +
+            "       a.check_out_time,\n" +
+            "       a.create_time,\n" +
+            "       a.complete_time,\n" +
+            "       a.final_payment_amount,\n" +
+            "       c.customer_name,\n" +
+            "       c.customer_phone,\n" +
+            "       r.room_number,\n" +
+            "       r.room_price,\n" +
+            "       r.hour_price,\n" +
+            "       r.room_introduction,\n" +
+            "       r.room_url, rt.type,\n" +
+            "       d.deposit\n" +
+            "from order_record a\n" +
+            "         left join customer c on a.customer_id = c.customer_id\n" +
+            "         left join room r on a.room_id = r.room_id\n" +
+            "         left join deposit d on a.order_id = d.order_id\n" +
+            "         left join room_type rt on r.type_id = rt.id \n" +
+            "where a.order_id=#{order_id}")
+    Map<String,Object> getOrderDetailById(@Param("order_id") Integer orderId);
+
+    @Select("select c.name,a.create_time,a.complete_time,a.commodity_count,a.money,a.commodity_status\n" +
+            "from commodity_record a left join commodity c on a.commodity_id = c.commodity_id\n" +
+            "where a.order_id=#{order_id}")
+    List<Map<String, Object>> getCommodityRecordByOrderId(@Param("order_id") Integer orderId);
 }

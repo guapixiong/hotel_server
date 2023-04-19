@@ -21,4 +21,6 @@ public interface OrderRecordService extends IService<OrderRecord> {
     Integer addFastCheckIn(Map<String,Object> params) throws Exception;
     Integer addBookAStayInfo(Map<String,Object> params) throws Exception;
     Integer cancelOrderById(Integer id);
+    Map<String ,Object> getOrderDetailById(String orderId);
+    List<Map<String,Object>> getCommodityRecordByOrderId(String orderId);
 }

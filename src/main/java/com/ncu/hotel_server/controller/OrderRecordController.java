@@ -54,4 +54,15 @@ public class OrderRecordController {
     public Integer cancelOrderById(Integer id){
         return orderRecordService.cancelOrderById(id);
     }
+    @ApiOperation("通过订单id来获取订单有关用户房间信息")
+    @GetMapping("/getOrderDetailById")
+    public Map<String ,Object> getOrderDetailById(String orderId){
+        return orderRecordService.getOrderDetailById(orderId);
+    }
+    @ApiOperation("通过订单id来获取相关商品信息")
+    @GetMapping("/getCommodityRecordByOrderId")
+    public List<Map<String,Object>> getCommodityRecordByOrderId(String orderId){
+
+        return orderRecordService.getCommodityRecordByOrderId(orderId);
+    }
 }

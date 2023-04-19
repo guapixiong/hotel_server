@@ -74,5 +74,10 @@ public class RoomController {
     public Integer insertReservation(@RequestBody Map<String,String> params) throws Exception {
         return roomService.insertReservation(params);
     }
+    @ApiOperation("通过订单获取房间信息")
+    @GetMapping("/getRoomInfoByRecordId")
+    public Map<String,Object> getRoomInfoByRecordId(String order_id){
+        return roomService.getRoomInfoByRecordId(order_id);
+    }
 
 }

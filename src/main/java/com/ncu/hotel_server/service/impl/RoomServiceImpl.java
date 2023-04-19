@@ -86,4 +86,9 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
         //params.forEach((k,v)-> System.out.println(k+":"+v));
         return orderRecordMapper.insertReservationRecord(customer_id,params.get("room_id"),params.get("room_type"),"1",params.get("check_in_time"),params.get("check_out_time"));
     }
+
+    @Override
+    public Map<String, Object> getRoomInfoByRecordId(String order_id) {
+        return baseMapper.getRoomInfoByRecordId(order_id);
+    }
 }

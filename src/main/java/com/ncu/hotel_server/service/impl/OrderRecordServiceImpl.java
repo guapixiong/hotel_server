@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.ncu.hotel_server.entity.OccupantRecord;
 import com.ncu.hotel_server.entity.OrderRecord;
 import com.ncu.hotel_server.mapper.CustomerMapper;
+import com.ncu.hotel_server.mapper.DepositMapper;
 import com.ncu.hotel_server.mapper.OccupantRecordMapper;
 import com.ncu.hotel_server.mapper.OrderRecordMapper;
 import com.ncu.hotel_server.service.OrderRecordService;
@@ -37,6 +38,8 @@ public class OrderRecordServiceImpl extends ServiceImpl<OrderRecordMapper, Order
     CustomerMapper customerMapper;
     @Autowired
     OccupantRecordMapper occupantRecordMapper;
+    @Autowired
+    DepositMapper depositMapper;
     @Override
     public List<Map<String, Object>> getSalesByTime(String start, String end) {
         return baseMapper.getSalesByTime(start, end);
@@ -74,11 +77,13 @@ public class OrderRecordServiceImpl extends ServiceImpl<OrderRecordMapper, Order
         orderRecord.setRoomId( params.get("room_id").toString());
         orderRecord.setRoomType((String) params.get("room_type"));
         orderRecord.setOrderStatus("2");
+        orderRecord.setFinalPaymentAmount(Float.parseFloat(params.get("actuallyPaid").toString()) );
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         orderRecord.setCheckInTime(LocalDateTime.parse((String) params.get("check_in_time"),formatter));
         orderRecord.setCheckOutTime(LocalDateTime.parse((String)params.get("check_out_time"),formatter));
         //int result1=baseMapper.insertReservationRecord(customer_id,params.get("room_id"),params.get("room_type"),"2",params.get("check_in_time"),params.get("check_out_time"));
         int result1=baseMapper.insertRecord(orderRecord);
+        int result2=depositMapper.insertDeposit(orderRecord.getOrderId(),Double.parseDouble(params.get("deposit").toString()));
         List<Map<String,String>> occupants= (List<Map<String, String>>) params.get("occupants");
         int count=0;
         for(int i=0;i<occupants.size();i++){
@@ -89,7 +94,7 @@ public class OrderRecordServiceImpl extends ServiceImpl<OrderRecordMapper, Order
             occupant.setType(occupants.get(i).get("type"));
             count+=occupantRecordMapper.insert(occupant);
         }
-        if(count==occupants.size()&&result1==1){
+        if(count==occupants.size()&&result1==1&&result2==1){
             return 1;
         }
         else
@@ -99,18 +104,20 @@ public class OrderRecordServiceImpl extends ServiceImpl<OrderRecordMapper, Order
 
     @Override
     public Integer addBookAStayInfo(Map<String, Object> params) throws Exception {
-        int result=baseMapper.updateStatus("2", (Integer) params.get("record_id"));
+        int record_id=Integer.parseInt(params.get("record_id").toString());
+        int result=baseMapper.updateStatus("2",Double.parseDouble(params.get("actuallyPaid").toString()) , record_id );
+        int result1=depositMapper.insertDeposit(record_id,Double.parseDouble(params.get("deposit").toString()));
         List<Map<String,String>> occupants= (List<Map<String, String>>) params.get("occupants");
         int count=0;
         for(int i=0;i<occupants.size();i++){
             OccupantRecord occupant=new OccupantRecord();
-            occupant.setOrderId((Integer) params.get("record_id"));
+            occupant.setOrderId(record_id);
             occupant.setName(occupants.get(i).get("name"));
             occupant.setCardId(occupants.get(i).get("cardId"));
             occupant.setType(occupants.get(i).get("type"));
             count+=occupantRecordMapper.insert(occupant);
         }
-        if(count==occupants.size()&&result==1){
+        if(count==occupants.size()&&result==1&&result1==1){
             return 1;
         }
         else
@@ -121,5 +128,15 @@ public class OrderRecordServiceImpl extends ServiceImpl<OrderRecordMapper, Order
     public Integer cancelOrderById(Integer id) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return baseMapper.cancelOrder("0",id,dtf.format(LocalDateTime.now()));
+    }
+
+    @Override
+    public Map<String, Object> getOrderDetailById(String orderId) {
+        return baseMapper.getOrderDetailById(Integer.parseInt(orderId));
+    }
+
+    @Override
+    public List<Map<String, Object>> getCommodityRecordByOrderId(String orderId) {
+        return baseMapper.getCommodityRecordByOrderId(Integer.parseInt(orderId));
     }
 }

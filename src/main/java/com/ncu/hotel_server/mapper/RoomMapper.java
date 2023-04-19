@@ -45,4 +45,9 @@ public interface RoomMapper extends BaseMapper<Room> {
             "where  order_status not in ('-1','0') and (check_in_time<=#{end} and check_out_time>=#{start}))\n" +
             "and room_state='1' and room.type_id= room_type.id")
     List<Map<String,Object>> getAvailableRoomByTime(@Param("start") String start,@Param("end") String end);
+
+    @Select("select room_price,hour_price,room_type,check_in_time,check_out_time\n" +
+            "from order_record ,room\n" +
+            "where order_id=#{order_id} and room.room_id=order_record.room_id")
+    Map<String, Object> getRoomInfoByRecordId(@Param("order_id") String order_id);
 }

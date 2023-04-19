@@ -23,4 +23,5 @@ public interface RoomService extends IService<Room> {
     List<Map<String,Object>> getTypeInfo();
     List<Map<String,Object>> getAvailableRoomByTime(String start,String end);
     Integer insertReservation(Map<String,String> params) throws Exception;
+    Map<String,Object> getRoomInfoByRecordId(String order_id);
 }
