@@ -3,10 +3,7 @@ package com.ncu.hotel_server.service.impl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.ncu.hotel_server.entity.OccupantRecord;
 import com.ncu.hotel_server.entity.OrderRecord;
-import com.ncu.hotel_server.mapper.CustomerMapper;
-import com.ncu.hotel_server.mapper.DepositMapper;
-import com.ncu.hotel_server.mapper.OccupantRecordMapper;
-import com.ncu.hotel_server.mapper.OrderRecordMapper;
+import com.ncu.hotel_server.mapper.*;
 import com.ncu.hotel_server.service.OrderRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.models.auth.In;
@@ -40,6 +37,8 @@ public class OrderRecordServiceImpl extends ServiceImpl<OrderRecordMapper, Order
     OccupantRecordMapper occupantRecordMapper;
     @Autowired
     DepositMapper depositMapper;
+    @Autowired
+    CommodityRecordMapper commodityRecordMapper;
     @Override
     public List<Map<String, Object>> getSalesByTime(String start, String end) {
         return baseMapper.getSalesByTime(start, end);
@@ -138,5 +137,43 @@ public class OrderRecordServiceImpl extends ServiceImpl<OrderRecordMapper, Order
     @Override
     public List<Map<String, Object>> getCommodityRecordByOrderId(String orderId) {
         return baseMapper.getCommodityRecordByOrderId(Integer.parseInt(orderId));
+    }
+
+    @Transactional
+    @Override
+    public Integer checkoutByOrderId(Map<String,Object> params) throws Exception {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String time=dtf.format(LocalDateTime.now());
+        Integer recordId=Integer.parseInt(params.get("order_id").toString());
+        List<Integer> commodityRecordIds= (List<Integer>) params.get("commodityRecordIds");
+        int result1=baseMapper.checkoutOrder("3",Double.parseDouble(params.get("payment").toString()) ,recordId,time);
+        int result2=commodityRecordMapper.checkoutOrder(recordId,"2",time);
+        int result3= occupantRecordMapper.checkoutRecord(recordId,time);
+        if(result1==1&&result2==commodityRecordIds.size()){
+            return 1;
+        }
+        else
+            throw new Exception("结账错误");
+
+    }
+    @Transactional
+    @Override
+    public Integer reimburseOrder(String orderId, Double actualCharge) throws Exception {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String time=dtf.format(LocalDateTime.now());
+        Integer recordId=Integer.parseInt(orderId);
+        int result1=baseMapper.checkoutOrder("-1",actualCharge ,recordId,time);
+        int result2=commodityRecordMapper.checkoutOrder(recordId,"0",time);
+        int result3= occupantRecordMapper.checkoutRecord(recordId,time);
+        if(result1==1){
+            return 1;
+        }
+        else
+            throw new Exception("退款出错");
+    }
+
+    @Override
+    public List<Map<String, Object>> getCustomerByRecordId(Integer orderId) {
+        return occupantRecordMapper.getCustomerByRecordId(orderId);
     }
 }

@@ -3,6 +3,8 @@ package com.ncu.hotel_server.mapper;
 import com.ncu.hotel_server.entity.CommodityRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * <p>
@@ -14,5 +16,13 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CommodityRecordMapper extends BaseMapper<CommodityRecord> {
-
+    /**
+     * 更新商品记录 ，退房操作
+     * @param orderId
+     * @param status
+     * @param time
+     * @return
+     */
+    @Update("update commodity_record set complete_time=#{time},commodity_status=#{status} where order_id=#{orderId}")
+    Integer checkoutOrder(@Param("orderId") Integer orderId,@Param("status") String status,@Param("time") String time);
 }

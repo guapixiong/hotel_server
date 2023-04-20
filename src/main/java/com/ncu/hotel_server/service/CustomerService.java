@@ -16,4 +16,5 @@ import java.util.Map;
  */
 public interface CustomerService extends IService<Customer> {
     List<Map<String,Object>> getAllUser();
+    List<Map<String,Object>> getOccupantByTime(String start,String end);
 }

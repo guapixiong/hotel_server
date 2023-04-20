@@ -2,6 +2,7 @@ package com.ncu.hotel_server.controller;
 
 import com.ncu.hotel_server.service.CustomerService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,15 @@ import java.util.Map;
 public class CustomerController {
     @Autowired
     CustomerService customerService;
+    @ApiOperation("获取所有用户")
     @GetMapping("getAllUser")
     public List<Map<String,Object>> getAllUser(){
         return customerService.getAllUser();
     }
+    @ApiOperation("根据时间获取入住人")
+    @GetMapping("/getOccupantByTime")
+    public List<Map<String,Object>> getOccupantByTime(String start,String end){
+        return customerService.getOccupantByTime(start,end);
+    }
+
 }

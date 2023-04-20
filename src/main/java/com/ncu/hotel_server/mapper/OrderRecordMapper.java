@@ -121,8 +121,19 @@ public interface OrderRecordMapper extends BaseMapper<OrderRecord> {
             "where a.order_id=#{order_id}")
     Map<String,Object> getOrderDetailById(@Param("order_id") Integer orderId);
 
-    @Select("select c.name,a.create_time,a.complete_time,a.commodity_count,a.money,a.commodity_status\n" +
+    /**
+     * 根据订单号查找相关商品记录
+     * @param orderId
+     * @return
+     */
+    @Select("select c.commodity_id,a.id,c.price,c.name,a.create_time,a.complete_time,a.commodity_count,a.money,a.commodity_status\n" +
             "from commodity_record a left join commodity c on a.commodity_id = c.commodity_id\n" +
             "where a.order_id=#{order_id}")
     List<Map<String, Object>> getCommodityRecordByOrderId(@Param("order_id") Integer orderId);
+
+    /**
+     * 结算订单
+     */
+    @Update("update order_record set order_status=#{status},final_payment_amount=#{payment},complete_time=#{time} where order_id=#{id}")
+    Integer checkoutOrder(@Param("status") String status,@Param("payment") Double payment,@Param("id") Integer id,@Param("time") String time);
 }

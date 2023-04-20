@@ -2,6 +2,7 @@ package com.ncu.hotel_server.controller;
 
 import com.ncu.hotel_server.mapper.CustomerMapper;
 import com.ncu.hotel_server.service.OrderRecordService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javafx.beans.binding.ObjectExpression;
 import org.apache.ibatis.annotations.Param;
@@ -62,7 +63,21 @@ public class OrderRecordController {
     @ApiOperation("通过订单id来获取相关商品信息")
     @GetMapping("/getCommodityRecordByOrderId")
     public List<Map<String,Object>> getCommodityRecordByOrderId(String orderId){
-
         return orderRecordService.getCommodityRecordByOrderId(orderId);
+    }
+    @ApiOperation("结账退房操作")
+    @PostMapping("/checkoutByOrderId")
+    public Integer checkoutByOrderId(@RequestBody Map<String,Object> params) throws Exception {
+        return orderRecordService.checkoutByOrderId(params);
+    }
+    @ApiOperation("退款操作")
+    @GetMapping("/reimburseOrder")
+    public Integer reimburseOrder(String orderId,Double actualCharge) throws Exception {
+        return orderRecordService.reimburseOrder(orderId,actualCharge);
+    }
+    @ApiOperation("根据订单来获取入住人信息")
+    @GetMapping("/getCustomerByRecordId")
+    public List<Map<String,Object>> getCustomerByRecordId(String orderId){
+        return orderRecordService.getCustomerByRecordId(Integer.parseInt(orderId));
     }
 }

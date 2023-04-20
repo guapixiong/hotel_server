@@ -2,6 +2,7 @@ package com.ncu.hotel_server.service;
 
 import com.ncu.hotel_server.entity.OrderRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -23,4 +24,7 @@ public interface OrderRecordService extends IService<OrderRecord> {
     Integer cancelOrderById(Integer id);
     Map<String ,Object> getOrderDetailById(String orderId);
     List<Map<String,Object>> getCommodityRecordByOrderId(String orderId);
+    Integer checkoutByOrderId(Map<String,Object> params) throws Exception;
+    Integer reimburseOrder(String orderId,Double actualCharge) throws Exception;
+    List<Map<String,Object>> getCustomerByRecordId( Integer orderId);
 }

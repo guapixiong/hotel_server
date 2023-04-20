@@ -2,9 +2,11 @@ package com.ncu.hotel_server.mapper;
 
 import com.ncu.hotel_server.entity.OccupantRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -29,5 +31,27 @@ public interface OccupantRecordMapper extends BaseMapper<OccupantRecord> {
             "from order_record left join occupant_record o on order_record.order_id = o.order_id\n" +
             "where register_time between #{start} and #{end} and order_status in('2','3')")
     List<Map<String,Object>> getCustomerFlowByTime(@Param("start") String start, @Param("end") String end);
+
+    /**
+     * 退房操作
+     * @param id
+     * @param time
+     * @return
+     */
+    @Update("update occupant_record set leave_time=#{time} where order_id=#{id}")
+    Integer checkoutRecord(@Param("id") Integer id,@Param("time") String time);
+
+    /**
+     * 根据订单id来确定入住人
+     * @param orderId
+     * @return
+     */
+    @Select("select * from occupant_record where order_id=#{orderId}")
+    List<Map<String,Object>> getCustomerByRecordId(@Param("orderId") Integer orderId);
+
+    @Select("select * \n" +
+            "from occupant_record\n" +
+            "where register_time between #{start} and #{end}")
+    List<Map<String,Object>> getOccupantByTime(@Param("start") String start,@Param("end") String end);
 
 }
