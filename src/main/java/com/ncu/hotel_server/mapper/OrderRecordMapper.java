@@ -136,4 +136,21 @@ public interface OrderRecordMapper extends BaseMapper<OrderRecord> {
      */
     @Update("update order_record set order_status=#{status},final_payment_amount=#{payment},complete_time=#{time} where order_id=#{id}")
     Integer checkoutOrder(@Param("status") String status,@Param("payment") Double payment,@Param("id") Integer id,@Param("time") String time);
+
+    /**
+     * 根据订单更新付款
+     * @param id
+     * @param payment
+     * @return
+     */
+    @Update("update order_record set final_payment_amount=#{payment} where order_id=#{id}")
+    Integer updateRecordById(@Param("id")Integer id, @Param("payment")Double payment);
+
+    /**
+     * 根据订单id删除订单
+     * @param id
+     * @return
+     */
+    @Delete("delete from order_record where order_id=#{id}")
+    Integer deleteRecordById(@Param("id")Integer id);
 }

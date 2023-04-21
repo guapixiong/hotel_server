@@ -33,4 +33,24 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
     public List<Map<String, Object>> getOccupantByTime(String start, String end) {
         return occupantRecordMapper.getOccupantByTime(start,end);
     }
+
+    @Override
+    public Integer deleteOccupantById(Integer id) {
+        return occupantRecordMapper.deleteOccupantById(id);
+    }
+
+    @Override
+    public Integer deleteCustomerById(Integer id) {
+        return baseMapper.deleteCustomerById(id);
+    }
+
+    @Override
+    public Integer updateCustomer(String customer_phone, String customer_name, Integer id) {
+        return baseMapper.updateCustomer(customer_phone,customer_name,id);
+    }
+
+    @Override
+    public Integer insertCustomer(String customer_phone, String customer_name) {
+        return baseMapper.insertOneByPhone(customer_name, customer_phone);
+    }
 }

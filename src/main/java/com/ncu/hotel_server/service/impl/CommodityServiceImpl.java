@@ -2,9 +2,11 @@ package com.ncu.hotel_server.service.impl;
 
 import com.ncu.hotel_server.entity.Commodity;
 import com.ncu.hotel_server.mapper.CommodityMapper;
+import com.ncu.hotel_server.mapper.CommodityRecordMapper;
 import com.ncu.hotel_server.service.CommodityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.models.auth.In;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,8 @@ import java.util.Map;
  */
 @Service
 public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity> implements CommodityService {
+    @Autowired
+    CommodityRecordMapper commodityRecordMapper;
 
     @Override
     public List<Map<String, Object>> selectAllInfo() {
@@ -77,5 +81,10 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         }
         else
              throw new Exception("商品记录添加出现异常");
+    }
+
+    @Override
+    public Integer deleteCommodityRecordById(Integer id) {
+        return commodityRecordMapper.deleteCommodityRecordById(id);
     }
 }

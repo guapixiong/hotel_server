@@ -35,5 +35,26 @@ public class CustomerController {
     public List<Map<String,Object>> getOccupantByTime(String start,String end){
         return customerService.getOccupantByTime(start,end);
     }
+    @ApiOperation("删除入住人记录")
+    @GetMapping("/deleteOccupantById")
+    public Integer deleteOccupantById(Integer id){
+        return customerService.deleteOccupantById(id);
+    }
+
+    @ApiOperation("删除用户")
+    @GetMapping("/deleteCustomerById")
+    public Integer deleteCustomerById(Integer id){
+        return customerService.deleteCustomerById(id);
+    }
+    @ApiOperation("增加用户")
+    @GetMapping("/insertCustomer")
+    public Integer insertCustomer(String customer_phone,String customer_name){
+        return customerService.insertCustomer(customer_phone,customer_name);
+    }
+    @ApiOperation("修改用户")
+    @GetMapping("/updateCustomer")
+    public Integer updateCustomer(String customer_phone,String customer_name,Integer id){
+        return customerService.updateCustomer(customer_phone,customer_name ,id);
+    }
 
 }

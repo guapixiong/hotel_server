@@ -176,4 +176,14 @@ public class OrderRecordServiceImpl extends ServiceImpl<OrderRecordMapper, Order
     public List<Map<String, Object>> getCustomerByRecordId(Integer orderId) {
         return occupantRecordMapper.getCustomerByRecordId(orderId);
     }
+
+    @Override
+    public Integer updateRecordById(Integer id, Double payment) {
+        return baseMapper.updateRecordById(id,payment);
+    }
+
+    @Override
+    public Integer deleteRecordById(Integer id) {
+        return baseMapper.deleteRecordById(id);
+    }
 }

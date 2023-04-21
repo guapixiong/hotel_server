@@ -20,6 +20,7 @@ import java.util.Map;
  * @author xph
  * @since 2023-04-03
  */
+@Api("订单模块")
 @RestController
 @RequestMapping("/orderRecord")
 public class OrderRecordController {
@@ -79,5 +80,17 @@ public class OrderRecordController {
     @GetMapping("/getCustomerByRecordId")
     public List<Map<String,Object>> getCustomerByRecordId(String orderId){
         return orderRecordService.getCustomerByRecordId(Integer.parseInt(orderId));
+    }
+
+    @ApiOperation("根据订单id来更新个别信息")
+    @GetMapping("/updateRecordById")
+    public Integer updateRecordById(String id,Double payment){
+        return orderRecordService.updateRecordById(Integer.parseInt(id),payment);
+    }
+
+    @ApiOperation("根据订单id删除订单")
+    @GetMapping("/deleteRecordById")
+    public Integer deleteRecordById(String id){
+        return orderRecordService.deleteRecordById(Integer.parseInt(id));
     }
 }

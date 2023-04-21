@@ -1,6 +1,7 @@
 package com.ncu.hotel_server.controller;
 
 import com.ncu.hotel_server.entity.Commodity;
+import com.ncu.hotel_server.service.AdministratorService;
 import com.ncu.hotel_server.service.CommodityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,8 @@ import java.util.Map;
 public class CommodityController {
     @Autowired
     CommodityService commodityService;
+    @Autowired
+    AdministratorService administratorService;
     @ApiOperation("查询所有商品信息")
     @GetMapping("/getAllInfo")
     public List<Map<String,Object>> getAllInfo(){
@@ -64,4 +67,10 @@ public class CommodityController {
     public Integer insertCommodityRecords(@RequestBody Map<String, Object> params) throws Exception {
         return commodityService.insertCommodityRecords(params);
     }
+    @ApiOperation("删除一条商品记录")
+    @GetMapping("/deleteCommodityRecordById")
+    public Integer deleteCommodityRecordById(Integer id){
+        return commodityService.deleteCommodityRecordById(id);
+    }
+
 }

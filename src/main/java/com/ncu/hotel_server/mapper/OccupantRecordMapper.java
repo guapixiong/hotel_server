@@ -3,10 +3,7 @@ package com.ncu.hotel_server.mapper;
 import com.ncu.hotel_server.entity.OccupantRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.swagger.models.auth.In;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -49,9 +46,23 @@ public interface OccupantRecordMapper extends BaseMapper<OccupantRecord> {
     @Select("select * from occupant_record where order_id=#{orderId}")
     List<Map<String,Object>> getCustomerByRecordId(@Param("orderId") Integer orderId);
 
-    @Select("select * \n" +
-            "from occupant_record\n" +
+    /**
+     * 根据时间获取入住人
+     * @param start
+     * @param end
+     * @return
+     */
+    @Select("select a.id, a.name,a.card_id,r.room_number,a.type,a.register_time,a.leave_time\n" +
+            "from occupant_record a left join order_record o on a.order_id = o.order_id left join room r on o.room_id = r.room_id\n" +
             "where register_time between #{start} and #{end}")
     List<Map<String,Object>> getOccupantByTime(@Param("start") String start,@Param("end") String end);
+
+    /**
+     * 删除一条入住记录
+     * @param id
+     * @return
+     */
+    @Delete("delete from occupant_record where id=#{id}")
+    Integer deleteOccupantById(@Param("id") Integer id);
 
 }

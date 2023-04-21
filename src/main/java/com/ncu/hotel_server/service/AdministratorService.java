@@ -12,5 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-04-03
  */
 public interface AdministratorService extends IService<Administrator> {
+    Boolean signIn(String name,String password);
 
 }

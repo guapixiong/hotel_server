@@ -1,6 +1,7 @@
 package com.ncu.hotel_server.controller;
 
 import com.ncu.hotel_server.service.OccupantRecordService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.Map;
  * @author xph
  * @since 2023-04-03
  */
+@Api("入住人模块")
 @RestController
 @RequestMapping("/occupantRecord")
 public class OccupantRecordController {

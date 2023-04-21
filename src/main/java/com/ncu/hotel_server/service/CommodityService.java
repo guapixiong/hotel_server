@@ -23,4 +23,5 @@ public interface CommodityService extends IService<Commodity> {
     Integer deleteCommodity(int id);
     List<Map<String,Object>> getCommodityRecordByTime(String start,String end);
     Integer insertCommodityRecords( Map<String, Object> params) throws Exception;
+    Integer deleteCommodityRecordById(Integer id);
 }

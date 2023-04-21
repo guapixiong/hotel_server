@@ -2,10 +2,7 @@ package com.ncu.hotel_server.mapper;
 
 import com.ncu.hotel_server.entity.Customer;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import javax.management.ObjectName;
 import java.util.List;
@@ -42,5 +39,9 @@ public interface CustomerMapper extends BaseMapper<Customer> {
      */
     @Select("select * from customer")
     List<Map<String,Object>> getAllUser();
+    @Delete("delete from customer where customer_id=#{id}")
+    Integer deleteCustomerById(@Param("id") Integer id);
+    @Update("update customer set customer_phone=#{customer_phone},customer_name=#{customer_name} where customer_id=#{id}")
+    Integer updateCustomer(@Param("customer_phone") String customer_phone,@Param("customer_name") String customer_name,@Param("id") Integer id);
 }
 

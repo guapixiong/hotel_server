@@ -27,4 +27,6 @@ public interface OrderRecordService extends IService<OrderRecord> {
     Integer checkoutByOrderId(Map<String,Object> params) throws Exception;
     Integer reimburseOrder(String orderId,Double actualCharge) throws Exception;
     List<Map<String,Object>> getCustomerByRecordId( Integer orderId);
+    Integer updateRecordById(Integer id,Double payment);
+     Integer deleteRecordById(Integer id);
 }

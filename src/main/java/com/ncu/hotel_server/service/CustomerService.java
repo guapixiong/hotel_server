@@ -17,4 +17,8 @@ import java.util.Map;
 public interface CustomerService extends IService<Customer> {
     List<Map<String,Object>> getAllUser();
     List<Map<String,Object>> getOccupantByTime(String start,String end);
+    Integer deleteOccupantById(Integer id);
+    Integer deleteCustomerById(Integer id);
+    Integer updateCustomer(String customer_phone,String customer_name,Integer id);
+    Integer insertCustomer(String customer_phone,String customer_name);
 }
