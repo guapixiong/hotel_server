@@ -28,7 +28,7 @@ public class OrderRecordController {
     OrderRecordService orderRecordService;
     @ApiOperation("获取时间段营业额")
     @GetMapping("/getSalesByTime")
-    public List<Map<String,Object>> getSalesByTime(@Param("start") String start, @Param("end") String end){
+    public List<Map<String,Object>> getSalesByTime( String start,  String end){
         return orderRecordService.getSalesByTime(start, end);
     }
     @ApiOperation("获取订单量通过时间")
