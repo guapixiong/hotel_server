@@ -23,11 +23,9 @@ public class AdministratorController {
     @Autowired
     AdministratorService administratorService;
 
-    @ApiOperation("登录验证")
-    @PostMapping("/signIn")
-    public Boolean signIn(@RequestBody Map<String,Object> params){
-        return administratorService.signIn(params.get("username").toString(),params.get("password").toString());
+    @ApiOperation("修改密码")
+    @PostMapping("/updatePassword")
+    public Boolean updatePassword(@RequestBody Map<String,Object> params){
+        return administratorService.updatePassword(params);
     }
-
-
 }

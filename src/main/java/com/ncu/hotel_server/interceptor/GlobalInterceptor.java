@@ -1,5 +1,6 @@
 package com.ncu.hotel_server.interceptor;
 
+import com.ncu.hotel_server.util.JWTTokenUtil;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,8 +17,19 @@ import javax.servlet.http.HttpServletResponse;
 public class GlobalInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //System.out.println("到这啦");
-        return true;
+ //       System.out.println("到这啦");
+//        System.out.println(request.getHeader("Authentication"));
+        if(request.getHeader("Authentication")!=null) {
+            if (JWTTokenUtil.verify(request.getHeader("Authentication"))) {
+                return true;
+            } else {
+                response.setStatus(401);//token过期
+                return false;
+            }
+        }
+        else
+            return false;
+
     }
 
     @Override
