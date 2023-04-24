@@ -24,7 +24,7 @@ public interface OccupantRecordMapper extends BaseMapper<OccupantRecord> {
      * @param end
      * @return
      */
-    @Select("select id, order_id, card_id, name, type, register_time, leave_time from occupant_record where register_time between #{start} and #{end}")
+    @Select("select id, order_id, card_id, name, type,DATE_FORMAT( register_time,'%Y-%m-%d') time, leave_time from occupant_record where register_time between #{start} and #{end} order by register_time")
     List<Map<String,Object>> getCustomerFlowByTime(@Param("start") String start, @Param("end") String end);
 
     /**

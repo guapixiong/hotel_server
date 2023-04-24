@@ -25,7 +25,7 @@ public interface OrderRecordMapper extends BaseMapper<OrderRecord> {
      */
     @Select("select  DATE_FORMAT(complete_time,'%Y-%m-%d') time,final_payment_amount\n" +
             "from order_record \n" +
-            "where  complete_time between #{start} and #{end}")
+            "where  complete_time between #{start} and #{end} order by complete_time ")
     List<Map<String,Object>> getSalesByTime(@Param("start") String start, @Param("end") String end);
 
     /**
