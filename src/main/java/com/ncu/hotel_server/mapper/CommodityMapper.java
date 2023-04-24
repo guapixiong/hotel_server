@@ -67,7 +67,7 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
             "         left join commodity c on a.commodity_id = c.commodity_id\n" +
             "         left outer join order_record o on a.order_id = o.order_id\n" +
             "         left join customer c2 on o.customer_id = c2.customer_id left join room r on o.room_id = r.room_id\n" +
-            "where   a.create_time between #{start} and #{end}")
+            "where   a.create_time between #{start} and #{end} order by a.create_time desc")
     List<Map<String,Object>> getCommodityRecordByTime(@Param("start")String start,@Param("end")String end);
 
     /**

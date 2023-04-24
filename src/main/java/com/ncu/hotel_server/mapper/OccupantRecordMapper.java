@@ -52,7 +52,7 @@ public interface OccupantRecordMapper extends BaseMapper<OccupantRecord> {
      */
     @Select("select a.id, a.name,a.card_id,r.room_number,a.type,a.register_time,a.leave_time\n" +
             "from occupant_record a left join order_record o on a.order_id = o.order_id left join room r on o.room_id = r.room_id\n" +
-            "where register_time between #{start} and #{end}")
+            "where register_time between #{start} and #{end} order by register_time desc")
     List<Map<String,Object>> getOccupantByTime(@Param("start") String start,@Param("end") String end);
 
     /**

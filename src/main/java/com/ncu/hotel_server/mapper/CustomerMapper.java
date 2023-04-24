@@ -37,7 +37,7 @@ public interface CustomerMapper extends BaseMapper<Customer> {
     /**
      * 查找所有人
      */
-    @Select("select * from customer")
+    @Select("select * from customer order by create_time desc")
     List<Map<String,Object>> getAllUser();
     @Delete("delete from customer where customer_id=#{id}")
     Integer deleteCustomerById(@Param("id") Integer id);

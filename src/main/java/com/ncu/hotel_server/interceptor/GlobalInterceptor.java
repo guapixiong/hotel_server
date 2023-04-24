@@ -28,7 +28,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
             }
         }
         else{
-            response.setStatus(401);//token过期
+            response.setStatus(401);//没有token
             return false;
         }
 
