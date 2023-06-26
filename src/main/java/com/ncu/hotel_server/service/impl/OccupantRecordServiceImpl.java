@@ -21,6 +21,7 @@ import java.util.Map;
 public class OccupantRecordServiceImpl extends ServiceImpl<OccupantRecordMapper, OccupantRecord> implements OccupantRecordService {
     @Override
     public List<Map<String, Object>> getCustomerFlowByTime(String start, String end) {
+
         return baseMapper.getCustomerFlowByTime(start,end);
     }
 }

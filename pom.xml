@@ -73,6 +73,13 @@
             <artifactId>java-jwt</artifactId>
             <version>3.8.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.binarywang/weixin-java-miniapp -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+            <version>4.4.0</version>
+        </dependency>
+
 
     </dependencies>
     <dependencyManagement>

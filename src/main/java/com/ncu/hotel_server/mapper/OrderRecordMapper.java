@@ -153,4 +153,17 @@ public interface OrderRecordMapper extends BaseMapper<OrderRecord> {
      */
     @Delete("delete from order_record where order_id=#{id}")
     Integer deleteRecordById(@Param("id")Integer id);
+
+    /**
+     * 根据用户id来查找订单
+     * @param id
+     * @return
+     */
+    @Select("select order_id ,customer_phone,room_number,order_status,r.room_price,r.hour_price,check_in_time,check_out_time\n" +
+            "from order_record a\n" +
+            "         left join customer b on a.customer_id = b.customer_id\n" +
+            "left join room r on a.room_id = r.room_id\n" +
+            "where a.customer_id = #{id} order by a.create_time desc")
+    List<Map<String,Object>> selectRecordByCustomerId(@Param("id")String id);
+
 }

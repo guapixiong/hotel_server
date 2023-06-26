@@ -43,5 +43,16 @@ public interface CustomerMapper extends BaseMapper<Customer> {
     Integer deleteCustomerById(@Param("id") Integer id);
     @Update("update customer set customer_phone=#{customer_phone},customer_name=#{customer_name} where customer_id=#{id}")
     Integer updateCustomer(@Param("customer_phone") String customer_phone,@Param("customer_name") String customer_name,@Param("id") Integer id);
+
+    /**
+     * 根据openid来查找用户
+     * @param openid
+     * @return
+     */
+    @Select("select * from customer where openid=#{openid}")
+    List<Map<String,Object>> selectUserByOpenid(@Param("openid") String openid);
+
+    @Insert("insert into customer (openid) values (#{openid})")
+    Integer insertOneByOpenid(@Param("openid") String openid);
 }
 
