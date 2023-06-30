@@ -48,6 +48,7 @@ public interface AdministratorMapper extends BaseMapper<Administrator> {
     @Select("select * from administrator where account_name =#{name}")
     List<Map<String,Object>> selectAccountByName(@Param("name") String  name);
 
+
     /**
      * 新增一个用户
      * @param username
